@@ -25,4 +25,9 @@ public class Order {
     @Column(name = "order_amt")
     private Float orderAmt;
 
+    public void update(Customer customer, String orderStatus, Float orderAmt) {
+        this.customer = customer;
+        this.orderStatus = orderStatus;
+        this.orderAmt = orderAmt;
+    }
 }

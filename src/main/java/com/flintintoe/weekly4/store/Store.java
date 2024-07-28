@@ -1,5 +1,6 @@
 package com.flintintoe.weekly4.store;
 
+import com.flintintoe.weekly4.customer.Customer;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -24,4 +25,9 @@ public class Store {
     @Column(name = "phone_number", length = 16)
     private String phoneNumber;
 
+    public void update(String name, String address, String phoneNumber) {
+        this.name = name;
+        this.address = address;
+        this.phoneNumber = phoneNumber;
+    }
 }
