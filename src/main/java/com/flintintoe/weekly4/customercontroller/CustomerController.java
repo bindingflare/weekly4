@@ -1,6 +1,8 @@
 package com.flintintoe.weekly4.customercontroller;
 
+import com.flintintoe.weekly4.customer.Customer;
 import com.flintintoe.weekly4.customer.CustomerDto;
+import com.flintintoe.weekly4.menu.MenuDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,6 +15,12 @@ public class CustomerController {
 
     public CustomerController(CustomerService customerService) {
         this.customerService = customerService;
+    }
+
+    @PostMapping
+    public ResponseEntity<CustomerDto> createCustomer(@RequestBody CustomerDto customerDto) {
+        CustomerDto createdCustomer = customerService.createCustomer(customerDto);
+        return ResponseEntity.ok(createdCustomer);
     }
 
     @GetMapping

@@ -15,6 +15,9 @@ public class Menu {
     @Column(name = "menu_id", nullable = false)
     private Integer id;
 
+    @Column(name = "name", nullable = false, length = 64)
+    private String name;
+
     @Column(name = "category", nullable = false, length = 32)
     private String category;
 
@@ -24,7 +27,8 @@ public class Menu {
     @Column(name = "price", nullable = false)
     private Float price;
 
-    public void update(String category, String description, Float price) {
+    public void update(String name, String category, String description, Float price) {
+        this.name = name;
         this.category = category;
         this.description = description;
         this.price = price;

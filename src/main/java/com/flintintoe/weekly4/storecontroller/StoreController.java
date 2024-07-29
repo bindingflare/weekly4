@@ -1,18 +1,32 @@
 package com.flintintoe.weekly4.storecontroller;
 
+import com.flintintoe.weekly4.menu.MenuDto;
+import com.flintintoe.weekly4.menucontroller.MenuService;
+import com.flintintoe.weekly4.ordercontroller.OrderService;
+import com.flintintoe.weekly4.orderitemservice.OrderItemService;
 import com.flintintoe.weekly4.store.StoreDto;
+import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 
+@Slf4j
 @RestController
 @RequestMapping("/store")
 public class StoreController {
     private final StoreService storeService;
+    private final OrderService orderService;
+    private final OrderItemService orderItemService;
 
-    public StoreController(StoreService storeService) {
+    public StoreController(StoreService storeService, OrderService orderService, OrderItemService orderItemService) {
         this.storeService = storeService;
+        this.orderService = orderService;
+        this.orderItemService = orderItemService;
     }
 
     @PostMapping
@@ -32,6 +46,21 @@ public class StoreController {
         return storeService.getStoreById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/sales/{storeId}")
+    public ResponseEntity<Object> getSalesForStore(@PathVariable int storeId, @RequestParam("startDate") LocalDateTime startDate, @RequestParam("endDate") LocalDateTime endDate) {
+        StoreDto store = storeService.getStoreById(storeId).get();
+        log.info("id = {}",store.getId());
+        Object sales = orderService.getSalesOfStore(store.toEntity(), startDate, endDate);
+        log.info("sales = {}", sales);
+        return ResponseEntity.ok(sales);
+    }
+
+    @GetMapping("/top3")
+    public ResponseEntity<List<MenuDto>> getTop3MenuItems() {
+        List<MenuDto> menus = orderItemService.getTop3MenuItems();
+        return ResponseEntity.ok(menus);
     }
 
     @PutMapping("/{id}")

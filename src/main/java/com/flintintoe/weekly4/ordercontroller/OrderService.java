@@ -3,10 +3,12 @@ package com.flintintoe.weekly4.ordercontroller;
 import com.flintintoe.weekly4.order.Order;
 import com.flintintoe.weekly4.order.OrderDto;
 
+import com.flintintoe.weekly4.store.Store;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -30,6 +32,7 @@ public class OrderService {
     @Transactional
     public OrderDto createOrder(OrderDto OrderDto) {
         Order order = OrderDto.toEntity();
+        order.updateTime(); // UPDATE TIMESTAMP
         Order savedOrder = orderRepository.save(order);
         return OrderDto.of(savedOrder);
     }
@@ -51,7 +54,8 @@ public class OrderService {
     public Optional<OrderDto> updateOrder(int id, OrderDto orderDto) {
         return orderRepository.findById(id)
                 .map(existingOrder -> {
-                    existingOrder.update(orderDto.getCustomer().toEntity(), orderDto.getOrderStatus(), orderDto.getOrderAmt());
+                    existingOrder.update(orderDto.getCustomer().toEntity(), orderDto.getStore().toEntity(), orderDto.getOrderStatus(), orderDto.getOrderAmt(), orderDto.getOrderTime());
+                    existingOrder.updateTime(); // UPDATE TIMESTAMP
                     return orderDto.of(orderRepository.save(existingOrder));
                 });
     }
@@ -64,5 +68,10 @@ public class OrderService {
                     return true;
                 })
                 .orElse(false);
+    }
+
+    @Transactional(readOnly = true)
+    public Object getSalesOfStore(Store store, LocalDateTime from, LocalDateTime to) {
+        return orderRepository.findSalesOfStore(store, from, to);
     }
 }

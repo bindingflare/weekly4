@@ -34,6 +34,12 @@ public class MenuController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
+    @GetMapping("/category/{category}")
+    public ResponseEntity<List<MenuDto>> getMenuByCategory(@PathVariable String category) {
+        List<MenuDto> menus = menuService.getMenuByCategory(category);
+        return ResponseEntity.ok(menus);
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<MenuDto> updateMenu(@PathVariable int id, @RequestBody MenuDto menuDto) {
         return menuService.updateMenu(id, menuDto)

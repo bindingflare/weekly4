@@ -46,11 +46,18 @@ public class MenuService {
                 .map(MenuDto::of);
     }
 
+    @Transactional(readOnly = true)
+    public List<MenuDto> getMenuByCategory(String category) {
+        return menuRepository.findByCategory(category).stream()
+                .map(MenuDto::of)
+                .collect(Collectors.toList());
+    }
+
     @Transactional
     public Optional<MenuDto> updateMenu(int id, MenuDto menuDto) {
         return menuRepository.findById(id)
                 .map(existingMenu -> {
-                    existingMenu.update(menuDto.getCategory(), menuDto.getDescription(), menuDto.getPrice());
+                    existingMenu.update(menuDto.getName(), menuDto.getCategory(), menuDto.getDescription(), menuDto.getPrice());
                     return MenuDto.of(menuRepository.save(existingMenu));
                 });
     }

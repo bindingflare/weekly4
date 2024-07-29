@@ -1,5 +1,6 @@
 package com.flintintoe.weekly4.orderitem;
 
+import com.flintintoe.weekly4.customer.Customer;
 import com.flintintoe.weekly4.menu.Menu;
 import com.flintintoe.weekly4.order.Order;
 import jakarta.persistence.*;
@@ -28,4 +29,9 @@ public class OrderItem {
     @Column(name = "sale_price", nullable = false)
     private Float salePrice;
 
+    public void update(Menu menu, Order order, Float salePrice) {
+        this.menu = menu;
+        this.order = order;
+        this.salePrice = salePrice;
+    }
 }
