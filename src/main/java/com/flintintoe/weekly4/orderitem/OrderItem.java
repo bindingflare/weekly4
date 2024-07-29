@@ -1,6 +1,6 @@
 package com.flintintoe.weekly4.orderitem;
 
-import com.flintintoe.weekly4.customer.Customer;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.flintintoe.weekly4.menu.Menu;
 import com.flintintoe.weekly4.order.Order;
 import jakarta.persistence.*;

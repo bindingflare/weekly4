@@ -2,7 +2,6 @@ package com.flintintoe.weekly4.customer;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.NoArgsConstructor;
 import lombok.Value;
 
 import java.io.Serializable;

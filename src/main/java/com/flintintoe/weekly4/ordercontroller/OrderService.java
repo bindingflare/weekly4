@@ -18,8 +18,8 @@ public class OrderService {
     private final OrderRepository orderRepository;
 
     @Autowired
-    public OrderService(OrderRepository menuRepository) {
-        this.orderRepository = menuRepository;
+    public OrderService(OrderRepository orderRepository) {
+        this.orderRepository = orderRepository;
     }
 
     @Transactional

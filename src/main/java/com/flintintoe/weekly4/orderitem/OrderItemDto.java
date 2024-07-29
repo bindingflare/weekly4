@@ -1,8 +1,11 @@
 package com.flintintoe.weekly4.orderitem;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.flintintoe.weekly4.customer.CustomerDto;
 import com.flintintoe.weekly4.menu.MenuDto;
+import com.flintintoe.weekly4.order.Order;
 import com.flintintoe.weekly4.order.OrderDto;
+import com.flintintoe.weekly4.store.StoreDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Value;

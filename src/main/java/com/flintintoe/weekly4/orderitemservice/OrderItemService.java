@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -41,10 +40,10 @@ public class OrderItemService {
     }
 
     @Transactional
-    public Optional<OrderItemDto> updateOrderItem(int id, OrderItemDto orderDto) {
+    public Optional<OrderItemDto> updateOrderItem(int id, OrderItemDto orderItemDto) {
         return orderItemRepository.findById(id)
                 .map(existingOrderItem -> {
-                    existingOrderItem.update(orderDto.getMenu().toEntity(), orderDto.getOrder().toEntity(), orderDto.getSalePrice());
+                    existingOrderItem.update(orderItemDto.getMenu().toEntity(), orderItemDto.getOrder().toEntity(), orderItemDto.getSalePrice());
                     return OrderItemDto.of(orderItemRepository.save(existingOrderItem));
                 });
     }
