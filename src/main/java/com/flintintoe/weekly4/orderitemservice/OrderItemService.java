@@ -1,9 +1,7 @@
 package com.flintintoe.weekly4.orderitemservice;
 
-import com.flintintoe.weekly4.menu.MenuDto;
 import com.flintintoe.weekly4.orderitem.OrderItem;
 import com.flintintoe.weekly4.orderitem.OrderItemDto;
-import com.flintintoe.weekly4.store.Store;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,16 +21,9 @@ public class OrderItemService {
     }
 
     @Transactional
-    public OrderItemDto addOrderItem(OrderItemDto orderItemDto) {
-        OrderItem order = orderItemDto.toEntity();
-        OrderItem savedOrderItem = orderItemRepository.save(order);
-        return OrderItemDto.of(savedOrderItem);
-    }
-
-    @Transactional
     public OrderItemDto createOrderItem(OrderItemDto orderItemDto) {
-        OrderItem order = orderItemDto.toEntity();
-        OrderItem savedOrderItem = orderItemRepository.save(order);
+        OrderItem orderItem = orderItemDto.toEntity();
+        OrderItem savedOrderItem = orderItemRepository.save(orderItem);
         return OrderItemDto.of(savedOrderItem);
     }
 
@@ -54,7 +45,7 @@ public class OrderItemService {
         return orderItemRepository.findById(id)
                 .map(existingOrderItem -> {
                     existingOrderItem.update(orderDto.getMenu().toEntity(), orderDto.getOrder().toEntity(), orderDto.getSalePrice());
-                    return orderDto.of(orderItemRepository.save(existingOrderItem));
+                    return OrderItemDto.of(orderItemRepository.save(existingOrderItem));
                 });
     }
 

@@ -23,13 +23,6 @@ public class OrderService {
     }
 
     @Transactional
-    public OrderDto addOrder(OrderDto OrderDto) {
-        Order order = OrderDto.toEntity();
-        Order savedOrder = orderRepository.save(order);
-        return OrderDto.of(savedOrder);
-    }
-
-    @Transactional
     public OrderDto createOrder(OrderDto orderDto) {
         Order order = orderDto.toEntity();
         order.updateTime(); // UPDATE TIMESTAMP

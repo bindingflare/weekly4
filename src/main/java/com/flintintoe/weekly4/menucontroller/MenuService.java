@@ -20,13 +20,6 @@ public class MenuService {
     }
 
     @Transactional
-    public MenuDto addMenu(MenuDto menuDto) {
-        Menu menu = menuDto.toEntity();
-        Menu savedMenu = menuRepository.save(menu);
-        return MenuDto.of(savedMenu);
-    }
-
-    @Transactional
     public MenuDto createMenu(MenuDto menuDto) {
         Menu menu = menuDto.toEntity();
         Menu savedMenu = menuRepository.save(menu);

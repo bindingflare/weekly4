@@ -17,33 +17,33 @@ public class OrderItemController {
     }
 
     @PostMapping
-    public ResponseEntity<OrderItemDto> createOrder(@RequestBody OrderItemDto orderDto) {
+    public ResponseEntity<OrderItemDto> createOrderItem(@RequestBody OrderItemDto orderDto) {
         OrderItemDto createdOrder = orderItemService.createOrderItem(orderDto);
         return ResponseEntity.ok(createdOrder);
     }
 
     @GetMapping
-    public ResponseEntity<List<OrderItemDto>> getAllOrders() {
+    public ResponseEntity<List<OrderItemDto>> getAllOrderItems() {
         List<OrderItemDto> orders = orderItemService.getAllOrderItems();
         return ResponseEntity.ok(orders);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<OrderItemDto> getOrder(@PathVariable int id) {
+    public ResponseEntity<OrderItemDto> getOrderItem(@PathVariable int id) {
         return orderItemService.getOrderItemById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<OrderItemDto> updateOrder(@PathVariable int id, @RequestBody OrderItemDto orderDto) {
+    public ResponseEntity<OrderItemDto> updateOrderItem(@PathVariable int id, @RequestBody OrderItemDto orderDto) {
         return orderItemService.updateOrderItem(id, orderDto)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteOrder(@PathVariable int id) {
+    public ResponseEntity<Void> deleteOrderItem(@PathVariable int id) {
         boolean deleted = orderItemService.deleteOrderItem(id);
         return deleted ? ResponseEntity.noContent().build() : ResponseEntity.notFound().build();
     }
