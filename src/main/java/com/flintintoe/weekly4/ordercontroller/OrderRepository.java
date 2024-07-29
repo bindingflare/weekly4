@@ -11,6 +11,6 @@ import java.time.LocalDateTime;
 
 @Repository
 public interface OrderRepository extends JpaRepository<Order, Integer> {
-    @Query("SELECT SUM(o.orderAmt) as sales FROM Order o WHERE o.store = :store AND o.orderStatus = 'ORDER_COMPLETE' AND o.orderTime BETWEEN :start_time AND :end_time")
+    @Query(value = "SELECT IFNULL(SUM(o.orderAmt), 0) as sales FROM Order o WHERE o.store = :store AND o.orderStatus = 'ORDER_COMPLETE' AND o.orderTime BETWEEN :start_time AND :end_time")
     Object findSalesOfStore(@Param("store") Store store, @Param("start_time") LocalDateTime startTime, @Param("end_time") LocalDateTime endTime);
 }

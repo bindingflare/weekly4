@@ -23,15 +23,15 @@ public class OrderItemService {
     }
 
     @Transactional
-    public OrderItemDto addOrderItem(OrderItemDto OrderItemDto) {
-        OrderItem order = OrderItemDto.toEntity();
+    public OrderItemDto addOrderItem(OrderItemDto orderItemDto) {
+        OrderItem order = orderItemDto.toEntity();
         OrderItem savedOrderItem = orderItemRepository.save(order);
         return OrderItemDto.of(savedOrderItem);
     }
 
     @Transactional
-    public OrderItemDto createOrderItem(OrderItemDto OrderItemDto) {
-        OrderItem order = OrderItemDto.toEntity();
+    public OrderItemDto createOrderItem(OrderItemDto orderItemDto) {
+        OrderItem order = orderItemDto.toEntity();
         OrderItem savedOrderItem = orderItemRepository.save(order);
         return OrderItemDto.of(savedOrderItem);
     }
@@ -69,8 +69,7 @@ public class OrderItemService {
     }
 
     @Transactional(readOnly = true)
-    public List<MenuDto> getTop3MenuItems() {
-        return orderItemRepository.findTop3MenuItems().stream()
-                .collect(Collectors.toList());
+    public List<Object> getTop3MenuItems() {
+        return orderItemRepository.findTop3MenuItems();
     }
 }

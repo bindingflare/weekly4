@@ -18,7 +18,7 @@ import java.io.Serializable;
 public class OrderItemDto implements Serializable {
     Integer id;
     MenuDto menu;
-    com.flintintoe.weekly4.order.OrderDto order;
+    OrderDto order;
     Float salePrice;
 
     public static OrderItemDto of(OrderItem orderItem) {

@@ -13,6 +13,6 @@ import java.util.List;
 
 @Repository
 public interface OrderItemRepository extends JpaRepository<OrderItem, Integer> {
-    @Query("SELECT oi.menu, COUNT(oi.menu) as quantity FROM OrderItem oi GROUP BY oi.menu ORDER BY quantity DESC limit 3")
-    List<MenuDto> findTop3MenuItems();
+    @Query(value = "SELECT oi.menu, COUNT(oi.menu) as quantity FROM OrderItem oi GROUP BY oi.menu ORDER BY quantity DESC limit 3")
+    List<Object> findTop3MenuItems();
 }

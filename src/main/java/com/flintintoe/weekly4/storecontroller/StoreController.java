@@ -58,8 +58,8 @@ public class StoreController {
     }
 
     @GetMapping("/top3")
-    public ResponseEntity<List<MenuDto>> getTop3MenuItems() {
-        List<MenuDto> menus = orderItemService.getTop3MenuItems();
+    public ResponseEntity<List<Object>> getTop3MenuItems() {
+        List<Object> menus = orderItemService.getTop3MenuItems();
         return ResponseEntity.ok(menus);
     }
 
